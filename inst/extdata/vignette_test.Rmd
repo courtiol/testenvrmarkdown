@@ -3,13 +3,22 @@ title: "Testing rendering environments in rmarkdown"
 output: html_document
 ---
 
-Since I am rendering the vignette as follow:
+### Context
+
+I am rendering the vignette as follow:
 ```{r, eval=FALSE}
 vignette_env <- new.env(parent = as.environment("package:stats"))
 vignette_path <- rmarkdown::render(path_complete, quiet = TRUE, envir = vignette_env)
 ```
 
-I would expect not to find my package in the namespace here, nor the global env:
+The full code is:
+```{r, error=TRUE}
+testenvrmarkdown::build_extravignette
+```
+
+### Issue(s)
+
+Based on the content of `build_extravignette()` used to build the vignette, I would expect not to find my package in the namespaces listed here (nor the global env):
 
 Yet, my package appears among the attached ones (before loading the package) in the vignette:
 ```{r}
