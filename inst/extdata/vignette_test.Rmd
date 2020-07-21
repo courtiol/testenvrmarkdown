@@ -1,0 +1,45 @@
+---
+title: "Testing rendering environments in rmarkdown"
+output: html_document
+---
+
+Since I am rendering the vignette as follow:
+```{r, eval=FALSE}
+vignette_env <- new.env(parent = as.environment("package:stats"))
+vignette_path <- rmarkdown::render(path_complete, quiet = TRUE, envir = vignette_env)
+```
+
+I would expect not to find my package in the namespace here, nor the global env:
+
+Yet, my package appears among the attached ones (before loading the package) in the vignette:
+```{r}
+search()
+```
+
+Question 1: why is my package attached?
+
+Since my package is attached, I would expect `hello()` to work, but it does not:
+Attempt at using `hello()` before loading the package:
+```{r, error=TRUE}
+hello()
+```
+
+Question 2: why is `hello()` not found?
+
+I now load the package:
+```{r, error=TRUE}
+library(testenvrmarkdown)
+```
+
+Nothing seems to happen:
+```{r}
+search()
+```
+
+Another attempt at using `hello()` after loading the package:
+```{r, error=TRUE}
+hello()
+```
+
+Question 3: why is `hello()` still not found?
+
