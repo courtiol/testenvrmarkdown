@@ -8,7 +8,7 @@ See:
 Reprex:
 
 ```{r}
-remotes::install_github("courtiol/testrenvrmarkdown")
-library(testrenvrmarkdown)
+remotes::install_github("courtiol/testenvrmarkdown")
+library(testenvrmarkdown)
 build_extravignette()
 ```
